@@ -1,0 +1,11 @@
+body {
+  padding-top: 50px;
+  background-color: #f9f9f9;
+}
+.content-box {
+  padding: 40px 15px;
+  margin-left: 10px;
+  text-align: center;
+  border: 1px solid #DCDCDC;
+  background-color: #fff;
+}
