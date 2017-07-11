@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <head>
+    <title>JQuery AJAX Example</title>
+    <link href="bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" src="../assets/css/style.css"/>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+    <script>
+$(function(){
+$("button").click(function(){
+  alert("CLICKED");
+  $.ajax({
+      url: "https://www.dallasopendata.com/resource/qqc2-eivj.json?emonth=July&zipcode=75243&eyear=2017",
+      type: "GET",
+      data: {
+        "$limit" : 5000,
+        "$$app_token" : "YOURAPPTOKEN"
+      }
+      }).done(function(data) {
+        alert("Retrieved " + data.length + " records from the dataset!");
+
+        var trHTML = '';
+        var dayOfMonth = '';
+        $.each(data, function(i, item){
+          dayofMonth = data[i]['date1'].slice(8, 10);
+          trHTML += '<tr><td>' + data[i]['month1'] + ' ' + dayofMonth + ' ' + data[i]['year1'] + '</td><td>' +  data[i]['address'] + '</td><td>' + data[i]['offincident'] + '</td><td>' + data[i]['premise'] + '</td></tr>';
+        });
+        $('#crime-table').append(trHTML);
+      });
+  });
+});
+    </script>
+  </head>
+  <body>
+    <div id="crimes"></div>
+      <button class="btn btn-primary" id="show-crimes">See Crimes</button>
+    <table id="crime-table" class="table">
+      <tr>
+        <th>Date</th>
+        <th>Address</th>
+        <th>Crime</th>
+        <th>Premise</th>
+      </tr>
+    </table>
+  </body>
+</html>
